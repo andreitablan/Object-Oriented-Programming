@@ -4,35 +4,38 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <cstring>
+#include<iostream>
+using namespace std;
 
-//imi compila pana am facut ceva, o sa modific problema si o sa o postez
-
+//constructorul 1
 Sort::Sort(int numar_elemente, int min_element, int max_element)
 {
-    int* vector;
-    vector = (int*)(malloc(numar_elemente * sizeof(int)));
+    this->vector = (int*)(malloc(numar_elemente * sizeof(int)));
     time_t t;
     srand((unsigned)time(&t));
+    this->numar_el = numar_elemente;
     for (int i = 0; i < numar_elemente; i++) 
     {
        this->vector[i]= min_element + rand() % (min_element - max_element + 1);
+       
     }
 }
 
-Sort::Sort(int* vector, int numar_elemente) 
+//constructorul 2
+Sort::Sort(int *a, int numar_elemente) 
 {
-    int* vector;
-    vector = (int*)(malloc(numar_elemente * sizeof(int)));
+    this->numar_el = numar_elemente;
+    this->vector = (int*)(malloc(numar_elemente * sizeof(int)));
     for (int i = 0; i < numar_elemente; i++) 
     {
-       this->vector[i] = vector[i];
+       this->vector[i] = a[i];
     }
 }
 
+//constructorul 3
 Sort::Sort(int count, ...) 
 {
-    int* vector;
-    vector = (int*)(malloc(numar_elemente * sizeof(int)));
+    this->vector = (int*)(malloc(numar_el * sizeof(int)));
     va_list vl;
     va_start(vl, count);
     for (int i = 0; i < count; i++)
@@ -40,38 +43,65 @@ Sort::Sort(int count, ...)
         this->vector[i] = va_arg(vl, int);
     }
     va_end(vl);
+    this->numar_el = count;
 }
 
-Sort::Sort(char* c)
+//constructorul 4
+/*Sort::Sort(char* c)
 {   
-    for(int i=0; i<strlen(c); i++)
+   int contor = 0;
+   this->vector = new int[strlen(c) + 1];
+   for (int i = 0; i < strlen(c); i++)
+   {
+       int numar_nou = 0, p = 1;
+       while (c[i] == ',' || c[i])
+       {
+           int cifra = c[i] - '0';
+           numar_nou = numar_nou * p + cifra;
+           p = p * 10;
+           i++;
+       }
+       this->vector[contor++] = numar_nou;
+       
+   }
+   this->numar_el = contor;
+}*/
 
-    
-    printf("....\n");
-}
-
-    Sort::Sort(): vector(new int[6] {1, 2, 3, 4, 5, 6}){
-   // this->numar_elemente=count;
+//constructorul 5
+Sort::Sort():vector(new int[6] {1, 2, 3, 4, 5, 6})
+{   
+  this->numar_el=5;
 }
 
 
 
 void Sort::BubbleSort(bool ascendent)
 {  
-        int i, j, n = this->numar_elemente;
+        int i, j, n = this->numar_el;
         for (i = 0; i < n - 1; i++)
             for (j = 0; j < n - i - 1; j++)
-                if (this->vector[j] > this->vector[j + 1])
+                if (ascendent == 1)
                 {
-                    int aux = this->vector[j];
-                    this->vector[j] = this->vector[j + 1];
-                    this->vector[j + 1] = aux;
+                    if (this->vector[j] > this->vector[j + 1])
+                    {
+                        int aux = this->vector[j];
+                        this->vector[j] = this->vector[j + 1];
+                        this->vector[j + 1] = aux;
+                    }
                 }
+                else 
+                    if (this->vector[j] < this->vector[j + 1])
+                    {
+                        int aux = this->vector[j];
+                        this->vector[j] = this->vector[j + 1];
+                        this->vector[j + 1] = aux;
+                    }
+                
 
 }
 void Sort::InsertSort(bool ascendent )
 {   
-    int i, j, key, n=this->numar_elemente;
+    int i, j, key, n=this->numar_el;
     for (i = 1; i < n; i++)
     {
         key = this->vector[i];
@@ -89,7 +119,7 @@ void Sort::InsertSort(bool ascendent )
 int Sort::partition(int minim, int maxim)
 {
     int pivot = this->vector[maxim]; 
-    int i = (minim - 1);
+    int i = (minim - 1); 
 
     for (int j = minim; j <= maxim - 1; j++)
     {
@@ -120,16 +150,19 @@ void Sort::QuickSort( int minim, int maxim)
 }
 void Sort::Print()
 {
-
-
+    for (int i = 0; i < numar_el; i++)
+        cout << this->vector[i] << " ";
+    cout << '\n';
 }
+
 int Sort::GetElementsCount()
 {
-    return numar_elemente;
+    return numar_el;
 }
+
 int Sort::GetElementFromIndex(int index)
 {
-    if (index < numar_elemente && index >= 0)
+    if (index < numar_el && index >= 0)
         return vector[index];
     else return -1;
 
