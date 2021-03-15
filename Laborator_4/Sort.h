@@ -2,14 +2,14 @@
 class Sort
 { 
     int* vector;
-    int numar_elemente;
+    int numar_el;
     int partition(int minim, int maxim);
 
 public:
 
     Sort(int numar_elemente, int min_element, int max_element);
     
-    Sort(int* vector, int numar_elemente);
+    Sort(int* a, int numar_elemente);
     
     Sort();
     
@@ -21,7 +21,7 @@ public:
 
     void QuickSort( int minim, int maxim);
 
-    void BubbleSort(bool ascendent = false);
+    void BubbleSort(bool ascendent);
 
     void Print();
 
