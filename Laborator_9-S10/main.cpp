@@ -1,52 +1,27 @@
+#include "Map.h"
 #include <fstream>
 #include <string>
 #include <map>
 #include <queue>
-using namespace std;
-template<class K, class T>
-class Map
-{
-    struct element
-    {
-        T valoare{};
-        K key{};
-        int index{};
-    }*v{};
-    int i;
-    int n;
-
-};
-
+#include <iostream>
 int main()
-
 {
+	Map<int, const char*> m, n;
+	n[15] = "";
+	m[10] = "C++";
+	m[20] = "test";
+	m[30] = "Poo";
 
-    Map<int, const char*> m;
+	std::cout << m.Includes(n);
 
-    m[10] = "C++";
-
-    m[20] = "test";
-
-    m[30] = "Poo";
-
-    for (auto [key, value, index] : m)
-
-    {
-
-        printf("Index:%d, Key=%d, Value=%s\n", index, key, value);
-
-    }
-
-    m[20] = "result";
-
-    for (auto [key, value, index] : m)
-
-    {
-
-        printf("Index:%d, Key=%d, Value=%s\n", index, key, value);
-
-    }
-
-    return 0;
-
+	for (auto[key, value, index] : m)
+	{
+		printf("Index:%d, Key=%d, Value=%s\n", index, key, value);
+	}
+	m[20] = "result";
+	for (auto[key, value, index] : m)
+	{
+		printf("Index:%d, Key=%d, Value=%s\n", index, key, value);
+	}
+	return 0;
 }
