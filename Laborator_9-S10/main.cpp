@@ -6,13 +6,13 @@
 #include <iostream>
 int main()
 {
-	Map<int, const char*> m, n;
+	Map<int, const char *> m;
+
+
 	n[15] = "";
 	m[10] = "C++";
 	m[20] = "test";
 	m[30] = "Poo";
-
-	std::cout << m.Includes(n);
 
 	for (auto[key, value, index] : m)
 	{
